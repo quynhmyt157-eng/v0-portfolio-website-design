@@ -42,8 +42,7 @@ export default function Portfolio() {
       particle.style.animationDuration = `${20 + Math.random() * 30}s`
       particlesContainer.appendChild(particle)
     }
-
-  
+  }, [])
 
   const hardSkills = [
     { name: "3D Modeling", level: 95 },
@@ -141,7 +140,6 @@ export default function Portfolio() {
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-cyan-400/4 rounded-full blur-[100px] animate-pulse-slow"
           style={{ animationDelay: "4s" }}
         />
-
 
         <div className="absolute top-[20%] left-[15%] w-3 h-3 bg-cyan-400/60 rounded-full blur-sm animate-firefly" />
         <div
@@ -610,37 +608,6 @@ export default function Portfolio() {
           }
         }
 
-        :global(.ripple-group) {
-          position: absolute;
-          width: 0;
-          height: 0;
-        }
-
-        :global(.ripple-circle) {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 250px;
-          height: 250px;
-          margin-left: -125px;
-          margin-top: -125px;
-          border: 1px solid rgba(6, 182, 212, 0.25);
-          border-radius: 50%;
-          animation: ripple-gentle 6s ease-out infinite;
-          pointer-events: none;
-        }
-
-        @keyframes ripple-gentle {
-          0% {
-            transform: scale(0.8);
-            opacity: 0.7;
-          }
-          100% {
-            transform: scale(2.8);
-            opacity: 0;
-          }
-        }
-
         /* Enhanced firefly animation with smoother, more gentle movement using ease-in-out */
         @keyframes firefly {
           0%, 100% {
@@ -678,3 +645,4 @@ export default function Portfolio() {
     </div>
   )
 }
+
