@@ -142,7 +142,6 @@ export default function Portfolio() {
           style={{ animationDelay: "4s" }}
         />
 
-        <div id="ripples-container" className="absolute inset-0" />
 
         <div className="absolute top-[20%] left-[15%] w-3 h-3 bg-cyan-400/60 rounded-full blur-sm animate-firefly" />
         <div
