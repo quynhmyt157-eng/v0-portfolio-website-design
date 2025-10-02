@@ -8,14 +8,14 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent } from "@/components/ui/card"
-import { ChevronDown, Send, Mail, ExternalLink } from "lucide-react"
+import { ChevronDown, Send, Mail, ExternalLink, Copy, Check } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
 export default function Portfolio() {
   const [scrollY, setScrollY] = useState(0)
-  const [currentSection, setCurrentSection] = useState(0)
   const [arrowClicked, setArrowClicked] = useState(false)
+  const [emailCopied, setEmailCopied] = useState(false)
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -32,7 +32,7 @@ export default function Portfolio() {
     const particlesContainer = document.getElementById("particles-container")
     if (!particlesContainer) return
 
-    const particleCount = 50
+    const particleCount = 80
     for (let i = 0; i < particleCount; i++) {
       const particle = document.createElement("div")
       particle.className = "particle"
@@ -41,6 +41,26 @@ export default function Portfolio() {
       particle.style.animationDelay = `${Math.random() * 20}s`
       particle.style.animationDuration = `${20 + Math.random() * 30}s`
       particlesContainer.appendChild(particle)
+    }
+
+    const ripplesContainer = document.getElementById("ripples-container")
+    if (!ripplesContainer) return
+
+    const rippleCount = 3
+    for (let i = 0; i < rippleCount; i++) {
+      const rippleGroup = document.createElement("div")
+      rippleGroup.className = "ripple-group"
+      rippleGroup.style.left = `${15 + Math.random() * 70}%`
+      rippleGroup.style.top = `${15 + Math.random() * 70}%`
+
+      for (let j = 0; j < 3; j++) {
+        const ripple = document.createElement("div")
+        ripple.className = "ripple-circle"
+        ripple.style.animationDelay = `${j * 1.5}s`
+        rippleGroup.appendChild(ripple)
+      }
+
+      ripplesContainer.appendChild(rippleGroup)
     }
   }, [])
 
@@ -103,15 +123,24 @@ export default function Portfolio() {
   }
 
   const scrollToNextSection = () => {
-    const sections = ["work", "about", "skills", "contact"]
-    const nextSection = sections[currentSection % sections.length]
-    const element = document.getElementById(nextSection)
+    const element = document.getElementById("work")
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
-      setCurrentSection((prev) => prev + 1)
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
+      const offsetPosition = elementPosition - 40
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      })
       setArrowClicked(true)
       setTimeout(() => setArrowClicked(false), 600)
     }
+  }
+
+  const copyEmailToClipboard = () => {
+    navigator.clipboard.writeText("quynhtram1376@gmail.com")
+    setEmailCopied(true)
+    setTimeout(() => setEmailCopied(false), 2000)
   }
 
   return (
@@ -119,8 +148,54 @@ export default function Portfolio() {
       <div id="particles-container" className="fixed inset-0 pointer-events-none z-0" />
 
       <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-cyan-500/3 rounded-full blur-[120px]" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/3 rounded-full blur-[100px]" />
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.03)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]" />
+        </div>
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-cyan-500/5 rounded-full blur-[120px] animate-pulse-slow" />
+        <div
+          className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[100px] animate-pulse-slow"
+          style={{ animationDelay: "2s" }}
+        />
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-cyan-400/4 rounded-full blur-[100px] animate-pulse-slow"
+          style={{ animationDelay: "4s" }}
+        />
+
+        <div id="ripples-container" className="absolute inset-0" />
+
+        <div className="absolute top-[20%] left-[15%] w-3 h-3 bg-cyan-400/60 rounded-full blur-sm animate-firefly" />
+        <div
+          className="absolute top-[60%] right-[20%] w-2 h-2 bg-cyan-300/50 rounded-full blur-sm animate-firefly"
+          style={{ animationDelay: "2s", animationDuration: "18s" }}
+        />
+        <div
+          className="absolute bottom-[30%] left-[25%] w-2.5 h-2.5 bg-cyan-500/55 rounded-full blur-sm animate-firefly"
+          style={{ animationDelay: "4s", animationDuration: "22s" }}
+        />
+        <div
+          className="absolute top-[40%] right-[30%] w-2 h-2 bg-cyan-400/50 rounded-full blur-sm animate-firefly"
+          style={{ animationDelay: "1s", animationDuration: "20s" }}
+        />
+        <div
+          className="absolute bottom-[50%] left-[40%] w-3 h-3 bg-cyan-300/60 rounded-full blur-sm animate-firefly"
+          style={{ animationDelay: "3s", animationDuration: "24s" }}
+        />
+        <div
+          className="absolute top-[70%] left-[60%] w-2.5 h-2.5 bg-cyan-400/55 rounded-full blur-sm animate-firefly"
+          style={{ animationDelay: "5s", animationDuration: "21s" }}
+        />
+        <div
+          className="absolute bottom-[60%] right-[40%] w-2 h-2 bg-cyan-500/50 rounded-full blur-sm animate-firefly"
+          style={{ animationDelay: "6s", animationDuration: "23s" }}
+        />
+        <div
+          className="absolute top-[15%] right-[50%] w-2 h-2 bg-cyan-300/55 rounded-full blur-sm animate-firefly"
+          style={{ animationDelay: "7s", animationDuration: "25s" }}
+        />
+        <div
+          className="absolute bottom-[20%] left-[70%] w-2.5 h-2.5 bg-cyan-400/60 rounded-full blur-sm animate-firefly"
+          style={{ animationDelay: "8s", animationDuration: "19s" }}
+        />
       </div>
 
       <nav className="fixed top-0 left-0 right-0 z-50 px-8 py-6 flex justify-between items-center backdrop-blur-md bg-[#0a0e1a]/80 border-b border-cyan-500/10">
@@ -152,12 +227,12 @@ export default function Portfolio() {
             className="object-cover opacity-50 animate-slow-zoom"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0e1a]/60 via-[#0a0e1a]/40 to-[#0a0e1a]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0e1a]/60 via-[#0a0e1a]/40 to-[#0a0e1a] scale-110" />
         </div>
 
         <div className="relative z-10 text-center px-8">
-          <h1 className="text-6xl md:text-7xl lg:text-8xl font-serif leading-tight mb-6">Inspiring Visual Effects</h1>
-          <p className="text-xl md:text-2xl text-gray-300 font-light">Professional VFX Artistry</p>
+          <h1 className="text-6xl md:text-7xl lg:text-8xl font-serif leading-tight mb-6">Beyond the Frame</h1>
+          <p className="text-xl md:text-2xl text-gray-300 font-light">Scroll down to see more</p>
         </div>
 
         <button
@@ -178,7 +253,7 @@ export default function Portfolio() {
         </button>
       </section>
 
-      <section id="work" className="min-h-screen px-8 md:px-16 lg:px-24 py-24">
+      <section id="work" className="min-h-screen px-8 md:px-16 lg:px-24 py-24" style={{ scrollMarginTop: "100px" }}>
         <div className="max-w-7xl mx-auto w-full">
           <h2 className="text-5xl md:text-6xl font-serif mb-16">Portfolio</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -199,24 +274,24 @@ export default function Portfolio() {
                     />
                   </div>
                   <CardContent className="p-6 space-y-4">
-                    <h3 className="text-xl font-semibold group-hover:text-cyan-400 transition-colors">
+                    <h3 className="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">
                       {project.title}
                     </h3>
-                    <p className="text-sm text-gray-400 leading-relaxed">{project.description}</p>
+                    <p className="text-sm text-gray-300 leading-relaxed">{project.description}</p>
                     <div>
                       <p className="text-xs text-cyan-400/70 mb-2">Tools Used:</p>
                       <div className="flex flex-wrap gap-2">
                         {project.tools.map((tool) => (
                           <span
                             key={tool}
-                            className="text-xs px-2 py-1 bg-cyan-500/10 rounded border border-cyan-500/20"
+                            className="text-xs px-2 py-1 bg-cyan-500/10 rounded border border-cyan-500/20 text-cyan-300"
                           >
                             {tool}
                           </span>
                         ))}
                       </div>
                     </div>
-                    <p className="text-xs text-gray-500">Role: {project.role}</p>
+                    <p className="text-xs text-gray-400">Role: {project.role}</p>
                   </CardContent>
                 </Card>
               </Link>
@@ -232,20 +307,22 @@ export default function Portfolio() {
             <div className="md:col-span-1 flex flex-col items-center text-center">
               <div className="relative aspect-square rounded-lg overflow-hidden border border-cyan-500/20 mb-6 shadow-[0_0_50px_rgba(6,182,212,0.1)] w-full max-w-[300px]">
                 <Image
-                  src="/professional-vfx-artist-portrait-photo.jpg"
-                  alt="Nguyen Quynh Tram"
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/z7074199282920_d7f2916c3bc4a4df3b9a98829f586df9-Qsct08x8MAviEEQq0TpjvsThWJmD1c.jpg"
+                  alt="Tram Nguyen"
                   fill
                   className="object-cover"
+                  quality={100}
+                  priority
+                  style={{ imageRendering: "high-quality" }}
                 />
               </div>
-              <h3 className="text-2xl font-serif mb-2">Nguyen Quynh Tram</h3>
+              <h3 className="text-2xl font-serif mb-2">Tram Nguyen</h3>
               <p className="text-cyan-400 mb-4">VFX Artist | 3D Modeler | Illustrator</p>
             </div>
             <div className="md:col-span-2 space-y-6">
               <p className="text-lg leading-relaxed text-gray-300">
-                I'm a VFX artist with a focus on creating cinematic visual effects and enhancing storytelling through
-                visuals. My work combines technical expertise with artistic vision to bring imaginative concepts to
-                life.
+                Hi, I'm Tram. I work across VFX, 3D, and illustration, always curious and always creating. I love
+                turning ideas into visuals that feel alive and tell a story.
               </p>
               <div className="space-y-4">
                 <div>
@@ -395,17 +472,19 @@ export default function Portfolio() {
             <div className="flex flex-col md:flex-row gap-8 items-start md:items-center justify-between">
               <div>
                 <p className="text-sm text-gray-400 mb-2">Or reach me directly at:</p>
-                <a
-                  href="mailto:quynhtram1376@gmail.com"
+                <button
+                  onClick={copyEmailToClipboard}
                   className="flex items-center gap-2 text-gray-400 hover:text-cyan-400 transition-colors"
                 >
                   <Mail className="w-5 h-5" />
-                  quynhtram1376@gmail.com
-                </a>
+                  <span>quynhtram1376@gmail.com</span>
+                  {emailCopied ? <Check className="w-4 h-4 text-cyan-400" /> : <Copy className="w-4 h-4" />}
+                </button>
+                {emailCopied && <p className="text-xs text-cyan-400 mt-1 ml-7">Email copied to clipboard!</p>}
               </div>
               <div className="flex gap-6">
                 <a
-                  href="https://www.artstation.com/tramnguyen"
+                  href="https://www.artstation.com/julienguyen"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-gray-400 hover:text-cyan-400 transition-colors"
@@ -414,7 +493,7 @@ export default function Portfolio() {
                   <ExternalLink className="w-4 h-4" />
                 </a>
                 <a
-                  href="https://www.behance.net"
+                  href="https://www.behance.net/trmnguyn269"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-gray-400 hover:text-cyan-400 transition-colors"
@@ -439,10 +518,10 @@ export default function Portfolio() {
 
       <footer className="px-8 md:px-16 lg:px-24 py-12 border-t border-cyan-500/20 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-gray-400">© 2025 Nguyen Quynh Tram. All rights reserved.</p>
+          <p className="text-sm text-gray-400">© 2025 Tram Nguyen. All rights reserved.</p>
           <div className="flex gap-6 text-sm">
             <a
-              href="https://www.artstation.com/tramnguyen"
+              href="https://www.artstation.com/julienguyen"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-cyan-400 transition-colors"
@@ -450,7 +529,7 @@ export default function Portfolio() {
               ArtStation
             </a>
             <a
-              href="https://www.behance.net"
+              href="https://www.behance.net/trmnguyn269"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-cyan-400 transition-colors"
@@ -509,13 +588,28 @@ export default function Portfolio() {
           animation: pulse-glow 0.6s ease-in-out;
         }
 
+        @keyframes pulse-slow {
+          0%, 100% {
+            opacity: 1;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 0.8;
+            transform: scale(1.1);
+          }
+        }
+
+        .animate-pulse-slow {
+          animation: pulse-slow 8s ease-in-out infinite;
+        }
+
         :global(.particle) {
           position: absolute;
-          width: 2px;
-          height: 2px;
-          background: rgba(6, 182, 212, 0.3);
+          width: 3px;
+          height: 3px;
+          background: rgba(6, 182, 212, 0.5);
           border-radius: 50%;
-          box-shadow: 0 0 4px rgba(6, 182, 212, 0.5);
+          box-shadow: 0 0 6px rgba(6, 182, 212, 0.8);
           animation: float-gentle linear infinite;
         }
 
@@ -525,15 +619,80 @@ export default function Portfolio() {
             opacity: 0;
           }
           10% {
-            opacity: 0.6;
+            opacity: 0.8;
           }
           90% {
-            opacity: 0.6;
+            opacity: 0.8;
           }
           100% {
             transform: translateY(-100vh) translateX(50px);
             opacity: 0;
           }
+        }
+
+        :global(.ripple-group) {
+          position: absolute;
+          width: 0;
+          height: 0;
+        }
+
+        :global(.ripple-circle) {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 250px;
+          height: 250px;
+          margin-left: -125px;
+          margin-top: -125px;
+          border: 1px solid rgba(6, 182, 212, 0.25);
+          border-radius: 50%;
+          animation: ripple-gentle 6s ease-out infinite;
+          pointer-events: none;
+        }
+
+        @keyframes ripple-gentle {
+          0% {
+            transform: scale(0.8);
+            opacity: 0.7;
+          }
+          100% {
+            transform: scale(2.8);
+            opacity: 0;
+          }
+        }
+
+        /* Enhanced firefly animation with smoother, more gentle movement using ease-in-out */
+        @keyframes firefly {
+          0%, 100% {
+            transform: translate(0, 0);
+            opacity: 0.3;
+          }
+          15% {
+            opacity: 0.7;
+          }
+          25% {
+            transform: translate(120px, -80px);
+            opacity: 0.5;
+          }
+          40% {
+            transform: translate(60px, -160px);
+            opacity: 0.8;
+          }
+          60% {
+            transform: translate(-80px, -120px);
+            opacity: 0.6;
+          }
+          75% {
+            transform: translate(-140px, -60px);
+            opacity: 0.4;
+          }
+          85% {
+            opacity: 0.6;
+          }
+        }
+
+        .animate-firefly {
+          animation: firefly 18s ease-in-out infinite;
         }
       `}</style>
     </div>
