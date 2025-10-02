@@ -14,7 +14,7 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: "An. - Portfolio",
+  title: "Tram Nguyen Portfolio",
   description: "Brand systems designer and developer",
   generator: "v0.app",
 }
