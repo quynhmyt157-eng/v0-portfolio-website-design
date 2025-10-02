@@ -43,26 +43,7 @@ export default function Portfolio() {
       particlesContainer.appendChild(particle)
     }
 
-    const ripplesContainer = document.getElementById("ripples-container")
-    if (!ripplesContainer) return
-
-    const rippleCount = 3
-    for (let i = 0; i < rippleCount; i++) {
-      const rippleGroup = document.createElement("div")
-      rippleGroup.className = "ripple-group"
-      rippleGroup.style.left = `${15 + Math.random() * 70}%`
-      rippleGroup.style.top = `${15 + Math.random() * 70}%`
-
-      for (let j = 0; j < 3; j++) {
-        const ripple = document.createElement("div")
-        ripple.className = "ripple-circle"
-        ripple.style.animationDelay = `${j * 1.5}s`
-        rippleGroup.appendChild(ripple)
-      }
-
-      ripplesContainer.appendChild(rippleGroup)
-    }
-  }, [])
+  
 
   const hardSkills = [
     { name: "3D Modeling", level: 95 },
