@@ -177,7 +177,7 @@ export default function Portfolio() {
       </div>
 
       <nav className="fixed top-0 left-0 right-0 z-50 px-8 py-6 flex justify-between items-center backdrop-blur-md bg-[#0a0e1a]/80 border-b border-cyan-500/10">
-        <a href="#" className="text-lg font-serif tracking-wider hover:text-cyan-400 transition-colors">
+        <a href="#" className="text-sm md:text-lg font-serif tracking-wider hover:text-cyan-400 transition-colors">
           Tram Nguyen
         </a>
         <div className="flex gap-8 text-sm">
@@ -645,3 +645,4 @@ export default function Portfolio() {
     </div>
   )
 }
+
